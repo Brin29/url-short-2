@@ -1,0 +1,35 @@
+  <div>
+    <label for="url">Enter URL:</label>
+    <input id="url" #longUrl [formControl]="formShorten" type="url">
+    <button (click)="shortenUrl(longUrl.value)" type="button">
+      Shorten URL
+    </button>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Identificador</th>
+            <th>First Url</th>
+            <th>Shortened Url</th>
+          </tr>
+        </thead>
+        @if (datos.id){
+          <tbody>
+            @if (isLoading){
+              <ngx-skeleton-loader class="h-3" count=1 appearance="line"/>
+            }
+            @else{
+              <tr>
+                <td>{{datos.id}}</td>
+                <td><a href="{{datos.longUrl}}" target="_blank">{{datos.longUrl}}</a></td>
+                <td><a href="{{datos.shortUrl}}" target="_blank">{{datos.shortUrl}}</a></td>
+              </tr>
+            }
+          </tbody>
+        }
+        @else{
+          <p>Empty</p>
+        }
+      </table>
+    </div>
+  </div>
