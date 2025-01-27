@@ -1,35 +1,80 @@
-  <div>
-    <label for="url">Enter URL:</label>
-    <input id="url" #longUrl [formControl]="formShorten" type="url">
-    <button (click)="shortenUrl(longUrl.value)" type="button">
-      Shorten URL
-    </button>
-    <div>
-      <table>
-        <thead>
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold underline text-center text-blue-600 mb-6">
+      Shorten URL System
+    </h1>
+  
+    <!-- Formulario -->
+    <div class="flex flex-col items-center gap-4">
+      <label for="url" class="text-lg font-medium">Enter URL:</label>
+      <div class="flex gap-2">
+        <input
+          id="url"
+          #longUrl
+          [formControl]="formShorten"
+          type="url"
+          placeholder="Enter your long URL here"
+          class="border border-gray-300 rounded-md p-2 w-80 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+        />
+        <button
+          (click)="shortenUrl(longUrl.value)"
+          type="button"
+          class="bg-blue-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          Shorten URL
+        </button>
+      </div>
+    </div>
+  
+    <!-- Tabla de resultados -->
+    <div class="mt-8 overflow-x-auto">
+      <table class="table-auto w-full border-collapse border border-gray-200 text-left text-sm">
+        <thead class="bg-blue-600 text-white">
           <tr>
-            <th>Identificador</th>
-            <th>First Url</th>
-            <th>Shortened Url</th>
+            <th class="border border-gray-300 p-2">Identificador</th>
+            <th class="border border-gray-300 p-2">First URL</th>
+            <th class="border border-gray-300 p-2">Shortened URL</th>
           </tr>
         </thead>
         @if (datos.id){
-          <tbody>
-            @if (isLoading){
-              <ngx-skeleton-loader class="h-3" count=1 appearance="line"/>
-            }
-            @else{
+        <tbody>
+            @if (isLoading) {
               <tr>
-                <td>{{datos.id}}</td>
-                <td><a href="{{datos.longUrl}}" target="_blank">{{datos.longUrl}}</a></td>
-                <td><a href="{{datos.shortUrl}}" target="_blank">{{datos.shortUrl}}</a></td>
+                <td colspan="3" class="p-4">
+                  <ngx-skeleton-loader class="h-4 w-full" count="1"   appearance="line"/>
+                </td>
+              </tr>
+              }
+            @else {
+              <tr>
+                <td class="border border-gray-300 p-2">{{datos.id}}</td>
+                <td class="border border-gray-300 p-2">
+                  <a
+                    href="{{datos.longUrl}}"
+                    target="_blank"
+                    class="text-blue-600 underline hover:text-blue-800"
+                  >
+                  {{datos.longUrl}}
+                </a>
+                </td>
+                <td class="border border-gray-300 p-2">
+                  <a
+                    href="{{datos.shortUrl}}"
+                    target="_blank"
+                    class="text-blue-600 underline hover:text-blue-800"
+                  >
+                    {{datos.shortUrl}}
+                  </a>
+                </td>
               </tr>
             }
           </tbody>
-        }
-        @else{
-          <p>Empty</p>
-        }
+          }
+            @else {
+              <tr>
+                <td colspan="3" class="text-center p-4 text-gray-500">No data available</td>
+              </tr>
+            }
+          
       </table>
     </div>
-  </div>
+  </div>  
